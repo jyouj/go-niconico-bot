@@ -48,15 +48,6 @@ func main() {
   <-make(chan struct{})
 }
 
-func GetSjis(target string) string {
-    //utf-8->sjis
-    text, count, err := transform.String(japanese.ShiftJIS.NewEncoder(), target)
-    if err != nil {
-        panic(err)
-    }
-    fmt.Printf("バイト数: %v\n", count)
-    return text
-}
 
 func handleCmd(s *discordgo.Session, msg *discordgo.MessageCreate) {
   user := msg.Author
