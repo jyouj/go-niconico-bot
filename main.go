@@ -9,8 +9,6 @@ import (
   "strconv"
 
   "github.com/bwmarrin/discordgo"
-  "golang.org/x/text/encoding/japanese"
-  "golang.org/x/text/transform"
 )
 
 type Niconico struct {
