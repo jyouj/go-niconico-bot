@@ -4,6 +4,7 @@ import (
   "fmt"
   "encoding/json"
   "net/http"
+  "net/url"
   "io/ioutil"
   "os"
   "strconv"
@@ -54,8 +55,10 @@ func handleCmd(s *discordgo.Session, msg *discordgo.MessageCreate) {
   }
 
   content := msg.Content
+  str1 := url.QueryEscape(content)
+  fmt.Println(str1)
 
-  url := "https://api.search.nicovideo.jp/api/v2/snapshot/video/contents/search?q=" + content + "&targets=title&fields=contentId,title,viewCounter&filters[viewCounter][gte]=1000&_sort=-viewCounter&_offset=0&_limit=3&_context=apiguide"
+  url := "https://api.search.nicovideo.jp/api/v2/snapshot/video/contents/search?q=" + str1 + "&targets=title&fields=contentId,title,viewCounter&filters[viewCounter][gte]=1000&_sort=-viewCounter&_offset=0&_limit=3&_context=apiguide"
   fmt.Println(url)
   resp, _ := http.Get(url)
   defer resp.Body.Close()
