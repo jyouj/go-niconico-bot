@@ -56,15 +56,15 @@ func handleCmd(s *discordgo.Session, msg *discordgo.MessageCreate) {
 
   content := msg.Content
   str1 := url.QueryEscape(content)
-  fmt.Println(str1)
+  // fmt.Println(str1)
 
-  url := "https://api.search.nicovideo.jp/api/v2/snapshot/video/contents/search?q=" + str1 + "&targets=title&fields=contentId,title,viewCounter&filters[viewCounter][gte]=1000&_sort=-viewCounter&_offset=0&_limit=3&_context=apiguide"
-  fmt.Println(url)
+  url := "https://api.search.nicovideo.jp/api/v2/snapshot/video/contents/search?q=" + str1 + "&targets=title&fields=contentId,title,viewCounter&filters[viewCounter][gte]=1000&_sort=-viewCounter&_offset=0&_limit=1&_context=apiguide"
+  // fmt.Println(url)
   resp, _ := http.Get(url)
   defer resp.Body.Close()
   byteArray, _ := ioutil.ReadAll(resp.Body)
 
-  fmt.Println(string(byteArray))
+  // fmt.Println(string(byteArray))
 
   jsonBytes := ([]byte)(byteArray)
   data := new(Niconico)
@@ -75,7 +75,7 @@ func handleCmd(s *discordgo.Session, msg *discordgo.MessageCreate) {
   }
 
   if len(data.Data) == 0 {
-    s.ChannelMessageSend(msg.ChannelID, content + "は探せませんでした。英語で入力してください")
+    s.ChannelMessageSend(msg.ChannelID, content + "は探せませんでした。")
   } else {
     var vc string
     vc = strconv.Itoa(data.Data[0].ViewCounter)
